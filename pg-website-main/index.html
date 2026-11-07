@@ -44,7 +44,8 @@
           <li class="nav-item"><a class="nav-link" href="#home">Home</a></li>
           <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
           <li class="nav-item"><a class="nav-link" href="#services">Rooms &amp; Pricing</a></li>
-<li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
+          <li class="nav-item"><a class="nav-link" href="#gallery">Gallery</a></li>
+          <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
           <li class="nav-item ms-lg-3 mt-2 mt-lg-0">
             <a class="btn btn-brand rounded-pill px-4" href="#contact">Enquire Now</a>
           </li>
@@ -83,10 +84,10 @@
       <div class="container">
         <div class="row align-items-center g-5">
           <div class="col-lg-6 reveal">
-<figure class="about-photo mb-0">
-  <img src="images/room-1.jpg" alt="Bright, clean room at Sushila Girls PG" loading="lazy" />
-  <figcaption><i class="bi bi-house-heart-fill"></i> Girls-only &middot; Safe &amp; homely</figcaption>
-</figure>
+            <figure class="about-photo mb-0">
+              <img src="images/room-1.jpg" alt="Bright, clean room at Sushila Girls PG" loading="lazy" />
+              <figcaption><i class="bi bi-house-heart-fill"></i> Girls-only &middot; Safe &amp; homely</figcaption>
+            </figure>
           </div>
           <div class="col-lg-6 reveal">
             <span class="eyebrow">About Us</span>
@@ -178,6 +179,83 @@
       </div>
     </section>
 
+    <!-- ============ GALLERY ============ -->
+    <section class="section gallery-section" id="gallery">
+      <div class="container">
+        <div class="text-center mx-auto mb-5 section-head reveal">
+          <span class="eyebrow">Photo Gallery</span>
+          <h2 class="section-title">Take a Look Inside</h2>
+          <p>A peek at the rooms and common areas. Tap a photo to view it bigger.</p>
+        </div>
+        <div class="row g-3" id="gallery-grid">
+          <div class="col-6 col-lg-3 reveal">
+            <button type="button" class="gallery-item" data-full="images/hero.jpg" data-caption="Staircase and hallway">
+              <img src="images/hero.jpg" alt="Staircase and tiled hallway" loading="lazy" />
+              <span class="gallery-cap">Staircase &amp; hallway</span>
+            </button>
+          </div>
+          <div class="col-6 col-lg-3 reveal">
+            <button type="button" class="gallery-item" data-full="images/room-1.jpg" data-caption="Bright, airy room">
+              <img src="images/room-1.jpg" alt="Bright room with window and curtain" loading="lazy" />
+              <span class="gallery-cap">Bright, airy room</span>
+            </button>
+          </div>
+          <div class="col-6 col-lg-3 reveal">
+            <button type="button" class="gallery-item" data-full="images/room-2.jpg" data-caption="Beds and study tables">
+              <img src="images/room-2.jpg" alt="Beds and study tables" loading="lazy" />
+              <span class="gallery-cap">Beds &amp; study tables</span>
+            </button>
+          </div>
+          <div class="col-6 col-lg-3 reveal">
+            <button type="button" class="gallery-item" data-full="images/room-3.jpg" data-caption="Spacious room">
+              <img src="images/room-3.jpg" alt="Spacious room with tiled floor" loading="lazy" />
+              <span class="gallery-cap">Spacious room</span>
+            </button>
+          </div>
+        </div>
+        <p class="small text-center mt-3 mb-0 gallery-note">Photos are representative. Visit or ask on WhatsApp for more.</p>
+      </div>
+    </section>
+
+    <!-- Gallery lightbox -->
+    <div id="lightbox" class="lightbox" hidden>
+      <button type="button" class="lightbox-close" aria-label="Close">&times;</button>
+      <button type="button" class="lightbox-nav prev" aria-label="Previous photo">&#8249;</button>
+      <figure class="lightbox-fig">
+        <img id="lightbox-img" src="" alt="" />
+        <figcaption id="lightbox-cap"></figcaption>
+      </figure>
+      <button type="button" class="lightbox-nav next" aria-label="Next photo">&#8250;</button>
+    </div>
+    <script>
+      (function () {
+        var items = Array.prototype.slice.call(document.querySelectorAll("#gallery-grid .gallery-item"));
+        var box = document.getElementById("lightbox");
+        var img = document.getElementById("lightbox-img");
+        var cap = document.getElementById("lightbox-cap");
+        var current = 0;
+        function show(i) {
+          current = (i + items.length) % items.length;
+          img.src = items[current].getAttribute("data-full");
+          img.alt = items[current].getAttribute("data-caption") || "";
+          cap.textContent = items[current].getAttribute("data-caption") || "";
+        }
+        function open(i) { show(i); box.hidden = false; document.body.style.overflow = "hidden"; }
+        function close() { box.hidden = true; document.body.style.overflow = ""; }
+        items.forEach(function (el, i) { el.addEventListener("click", function () { open(i); }); });
+        box.querySelector(".lightbox-close").addEventListener("click", close);
+        box.querySelector(".prev").addEventListener("click", function () { show(current - 1); });
+        box.querySelector(".next").addEventListener("click", function () { show(current + 1); });
+        box.addEventListener("click", function (e) { if (e.target === box) close(); });
+        document.addEventListener("keydown", function (e) {
+          if (box.hidden) return;
+          if (e.key === "Escape") close();
+          if (e.key === "ArrowLeft") show(current - 1);
+          if (e.key === "ArrowRight") show(current + 1);
+        });
+      })();
+    </script>
+
     <!-- ============ WHY CHOOSE US ============ -->
     <section class="section" id="why-us">
       <div class="container">
@@ -213,7 +291,8 @@
         </div>
       </div>
     </section>
-<!-- ============ FAQ ============ -->
+
+    <!-- ============ FAQ ============ -->
     <section class="section" id="faq">
       <div class="container">
         <div class="text-center mx-auto mb-5 section-head reveal">
@@ -222,7 +301,7 @@
         </div>
         <div class="row justify-content-center">
           <div class="col-lg-8 reveal">
-            
+
             <div class="accordion" id="faqAccordion">
               <div class="accordion-item">
                 <h3 class="accordion-header"><button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#faq1" aria-expanded="true" aria-controls="faq1">Are there entry and exit timings?</button></h3>
@@ -354,6 +433,7 @@
           <ul class="list-unstyled small">
             <li class="mb-2"><a href="#about">About</a></li>
             <li class="mb-2"><a href="#services">Rooms &amp; Pricing</a></li>
+            <li class="mb-2"><a href="#gallery">Gallery</a></li>
             <li class="mb-2"><a href="#faq">FAQ</a></li>
             <li class="mb-2"><a href="#contact">Contact</a></li>
           </ul>
@@ -376,14 +456,14 @@
   <!-- ============ FLOATING WHATSAPP ============ -->
   <a href="#" class="wa-float wa-general" aria-label="Chat on WhatsApp"><i class="bi bi-whatsapp"></i></a>
   <!-- ============ MOBILE BOTTOM BAR (phones only) ============ -->
-<div class="mobile-bar d-md-none">
-  <a href="tel:+910000000000" data-call class="mbar-btn"><i class="bi bi-telephone-fill"></i> Call</a>
-  <a href="#" class="mbar-btn wa wa-general"><i class="bi bi-whatsapp"></i> WhatsApp</a>
-  <a href="#contact" class="mbar-btn primary"><i class="bi bi-send-fill"></i> Enquire</a>
-</div>
+  <div class="mobile-bar d-md-none">
+    <a href="tel:+910000000000" data-call class="mbar-btn"><i class="bi bi-telephone-fill"></i> Call</a>
+    <a href="#" class="mbar-btn wa wa-general"><i class="bi bi-whatsapp"></i> WhatsApp</a>
+    <a href="#contact" class="mbar-btn primary"><i class="bi bi-send-fill"></i> Enquire</a>
+  </div>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
   <script src="script.js"></script>
   <script type="module" src="dynamic.js"></script>
 </body>
-</html> 
+</html>
